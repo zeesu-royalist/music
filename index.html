@@ -4,632 +4,850 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeesu Royalist Music</title>
+    <title>Zeesu Music</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        /* Reset some default styling */
+        /* Global Styles */
+        :root {
+            --primary: #E8372E;
+            --secondary: #2D46B9;
+            --accent: #FF9B42;
+            --light: #F8F9FA;
+            --dark: #212529;
+            --gradient: linear-gradient(135deg, #ff6b6b, #c2e9fb, #a1c4fd, #FFE066);
+            --gradient-alt: linear-gradient(135deg, #E8372E, #2D46B9);
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
         }
 
-        /* Background Gradient */
         body {
+            background: var(--gradient);
+            color: var(--dark);
+            overflow-x: hidden;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, pink, #c2e9fb, #a1c4fd, #FFFACD);
-            overflow-x: hidden;
-            padding-top: 4rem;
-            /* Space for fixed navbar */
+            padding-top: 70px;
         }
 
-        /* Navbar */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 60px 0;
+            width: 100%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-alt);
+            border-radius: 2px;
+        }
+
+        /* Navigation */
         .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
-            padding: 0.6rem 1rem;
-            background: linear-gradient(135deg, pink, #c2e9fb, #a1c4fd);
-            color: white;
-            position: fixed;
-            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             z-index: 1000;
+            transition: all 0.3s ease;
         }
 
-        .navbar .logo {
-            font-size: 1.2rem;
-            font-weight: bold;
+        .navbar.scrolled {
+            padding: 10px 5%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
         }
 
-        .navbar nav {
+        .logo {
             display: flex;
-            gap: 1rem;
-        }
-
-        .navbar nav a {
-            color: white;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
             text-decoration: none;
         }
 
-        .navbar nav a:hover {
-            text-decoration: underline;
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-alt);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
         }
 
         .menu-toggle {
             display: none;
             cursor: pointer;
             flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
         }
 
-        .bar {
-            width: 25px;
+        .menu-toggle span {
             height: 3px;
-            background-color: black;
-            margin: 3px 0;
-            transition: 0.3s;
+            width: 100%;
+            background-color: var(--dark);
+            border-radius: 3px;
+            transition: all 0.3s ease;
         }
 
-        /* Main Content */
-        .content {
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
             display: flex;
             align-items: center;
-            max-width: 800px;
-            margin: auto;
-            padding: 1rem;
-            gap: 2rem;
-            text-align: center;
+            justify-content: center;
+            padding: 40px 0;
         }
 
-        .content img {
-            width: 100%;
-            max-width: 250px;
-            transition: transform 0.3s ease;
-            border-radius: 10px;
-        }
-
-        .content img:hover {
-            transform: scale(1.05);
-        }
-
-        .content h1 {
-            font-size: 2rem;
-            color: #333;
-        }
-
-        .content h2 {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #222;
-        }
-
-        /* Buttons */
-        .buttons {
-            margin-top: 1rem;
+        .hero-content {
             display: flex;
-            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: var(--gradient-alt);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-image img {
+            transition: all 0.5s ease;
+        }
+
+        .hero-image img:hover {
+            transform: translateY(-10px) scale(1.03);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
         .btn {
-            padding: 0.5rem 1.5rem;
+            padding: 12px 30px;
+            border-radius: 50px;
             font-size: 1rem;
-            border-radius: 20px;
-            border: none;
-            cursor: pointer;
-            transition: background 0.3s ease;
+            font-weight: 600;
             text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .btn-primary {
-            background-color: #fff;
-            color: #333;
-            border: 1px solid black;
+            background: var(--gradient-alt);
+            color: white;
+            box-shadow: 0 5px 15px rgba(232, 55, 46, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(232, 55, 46, 0.4);
         }
 
         .btn-secondary {
-            background-color: #d6e6f2;
-            color: #333;
-            border: 2px solid #d6e6f2;
+            background: transparent;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
         }
 
-        .btn:hover {
-            background-color: #E8372E;
-            color: #fff;
+        .btn-secondary:hover {
+            background: var(--secondary);
+            color: white;
+            transform: translateY(-3px);
         }
 
-        /* Herb Section */
-        .herb-section {
-            margin-top: 3rem;
-            text-align: center;
+        /* Artists Section */
+        .artists-section {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .herb-section h3 {
-            font-size: 1.8rem;
-            color: #333;
-        }
+.artists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 25px;
+}
 
-        .herb-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
+/* Responsive for smaller screens */
+@media (max-width: 768px) {
+    .artists-grid {
+        display: flex;
+        overflow-x: auto;
+        gap: 15px;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+    }
 
-        .herb-item {
-            width: 140px;
-            padding: 1rem;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
+    .artist-card {
+        min-width: 200px; 
+        flex: 10 10 auto;  
+    }
+}
 
-        .herb-item img {
-            width: 100%;
-            border-radius: 5px;
-        }
-
-        .herb-item h4 {
-            font-size: 1rem;
-            color: #333;
-            margin-top: 0.5rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .navbar nav {
-                display: none;
-                flex-direction: column;
-                background: linear-gradient(135deg, pink, #c2e9fb, #a1c4fd);
-                position: absolute;
-                top: 60px;
-                left: 0;
-                width: 100%;
-                text-align: center;
-            }
-
-            .navbar.active nav {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            .content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .content img {
-                width: 80%;
-            }
-
-            .buttons {
-                justify-content: center;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="logo">Zeesu Royalist</div>
-        <div class="menu-toggle" id="menuToggle">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-        <nav>
-            <a href="">Home</a>
-            <a href="https://zeesu-royalist.github.io" target="blank">About</a>
-            <a href="https://zeesu-royalist.github.io/Legacy/" target="blank">Services</a>
-            <a href="https://zeesu-royalist.github.io/chronicles/" target="blank">Projects</a>
-            <a href="https://www.linkedin.com/in/mohammad-jishan-4361972ba/" target="blank">Contact</a>
-        </nav>
-    </div>
-
-    <!-- Main Content -->
-    <div class="content">
-        <div>
-            <h1>Welcome to</h1>
-            <h2>Zeesu Royalist</h2>
-            <div class="buttons">
-                <a href="https://www.youtube.com/@zeesu_royalist" target="_blank" class="btn btn-primary">Play Now</a>
-                <a href="https://www.google.com/search?q=zeesu+royalist" target="_blank" class="btn btn-secondary">Search...</a>
-            </div>
-        </div>
-        <img src="https://static.vecteezy.com/system/resources/thumbnails/024/822/743/small_2x/the-headphones-ai-generated-transparent-png.png" alt="Headset Image">
-    </div>
-
-    <!-- Herb Types Section -->
-    <div class="herb-section">
-        <h3>Explore Different Types of Artists</h3>
-        <div class="herb-list">
-            <!-- Herb Items -->
-            <div class="herb-item" style="background-color: #D5F5E3">
-                <img src="https://cdn.britannica.com/17/249617-050-4575AB4C/Ed-Sheeran-performs-Rockefeller-Plaza-Today-Show-New-York-2023.jpg" alt="Ed Sheeran">
-                <h4>Ed Sheeran</h4>
-            </div>
-            <div class="herb-item" style="background-color: #DDE0B1">
-                <img src="https://wallpapercave.com/wp/wp6356968.jpg" alt="Zayn Malik">
-                <h4>Zayn Malik</h4>
-            </div>
-            <div class="herb-item" style="background-color: #D7BDE2">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Anne-Marie-4250_%28cropped%29.jpg" alt="Anne Marie">
-                <h4>Anne Marie</h4>
-            </div>
-            <div class="herb-item" style="background-color: #F5B7B1">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Justin_Bieber_in_Rosemont%2C_Illinois_%282015%29_%28cropped%29.jpg" alt="Justin Bieber">
-                <h4>Justin Bieber</h4>
-            </div>
-            <div class="herb-item" style="background-color: #A9DFBF">
-                <img src="https://images.seattletimes.com/wp-content/uploads/2015/04/dfd95b0a-dc82-11e4-aaea-fade20b14329.jpg?d=2040x3060" alt="Ariana Grande">
-                <h4>Ariana</h4>
-            </div>
-            <div class="herb-item" style="background-color: #A2ABDF">
-                <img src="https://i.pinimg.com/736x/5b/51/04/5b5104aa689e1943ea81e244a37eb0eb.jpg" alt="Zeesu Royalist">
-                <h4>Zeesu Royalist</h4>
-            </div>
-        </div>
-    </div> <br>
-
-    <script>
-        const menuToggle = document.getElementById('menuToggle');
-        const navbar = document.querySelector('.navbar');
-
-        menuToggle.addEventListener('click', () => {
-            navbar.classList.toggle('active');
-        });
-    </script>
-
-
-    <style>
-        /* Audio Section Styling */
-        .audio-section {
-            max-width: 1200px;
-            width: 90%;
-            padding: 2rem;
-            margin-top: 1rem;
-            background: linear-gradient(135deg, pink, #c2e9fb, #a1c4fd, #FFFACD);
+        .artist-card {
+            background: white;
             border-radius: 15px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
             text-align: center;
         }
 
-        .audio-section h2 {
-            font-size: 2rem;
-            color: #005f73;
-            margin-bottom: 1rem;
-            font-weight: bold;
+        .artist-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
-        .audio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+        .artist-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
         }
 
-        .audio-player {
-            background: #f0f0f0;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s ease;
+        .artist-info {
+            padding: 15px;
         }
 
-        .audio-player:hover {
-            transform: scale(1.05);
-        }
-
-        .audio-player h3 {
+        .artist-info h4 {
             font-size: 1.2rem;
-            color: #333;
-            margin-bottom: 0.5rem;
+            margin-bottom: 5px;
+            color: var(--dark);
         }
 
-        .audio-player audio {
-            width: 100%;
-            outline: none;
-            border-radius: 5px;
+        /* Music Player Section */
+        .music-section {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .audio-section h2 {
-                font-size: 1.8rem;
-            }
-
-            .audio-player h3 {
-                font-size: 1rem;
-            }
-        }
-    </style>
-    </head>
-
-    <body>
-
-        <!-- Audio Section -->
-        <div class="audio-section">
-            <h2>Listen to Our Music Collection</h2>
-
-            <div class="audio-grid">
-
-                <!-- Repeat this section for each audio file -->
-<div class="audio-player" style="background-color: #DDE0B1; display: flex; align-items: center; padding: 10px; border-radius: 8px;">
-    <!-- Add the image here -->
-    <img src="https://i.pinimg.com/originals/cd/06/e1/cd06e1cec5800a10d0ff9488363c26fa.jpg" alt="Song Image" style="width: 50px; height: 50px; margin-right: 10px; border-radius: 5px;">
-    
-    <!-- Text and audio player content -->
-    <div>
-        <h3>Song 1 - Role Playing Game</h3>
-        <audio controls>
-            <source src="http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3" type="audio/mp3">
-        </audio>
-    </div>
-</div>
-
-
-<div class="audio-player" style="background-color: #D5F5E3; display: flex; align-items: center; padding: 10px; border-radius: 8px;">
-    <!-- Add the image here -->
-    <img src="https://cdn.venngage.com/template/thumbnail/small/79879260-0211-46bb-abcd-968fb4e2c0ea.webp" alt="Song Image" style="width: 50px; height: 50px; margin-right: 10px; border-radius: 5px;">
-    
-    <!-- Text and audio player content -->
-    <div>
-        <h3>Song 2 - Role Playing Game</h3>
-        <audio controls>
-            <source src="http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3" type="audio/mp3">
-        </audio>
-    </div>
-</div>
-
-
-<div class="audio-player" style="background-color: #D7BDE2; display: flex; align-items: center; padding: 10px; border-radius: 8px;">
-    <!-- Add the image here -->
-    <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/soul-music-album-art-cover-design-template-75f6aeb99d98e41c5433365fc08980bc_screen.jpg?ts=1687769397" alt="Song Image" style="width: 50px; height: 50px; margin-right: 10px; border-radius: 5px;">
-    
-    <!-- Text and audio player content -->
-    <div>
-        <h3>Song 3 - Role Playing Game</h3>
-        <audio controls>
-            <source src="http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3" type="audio/mp3">
-        </audio>
-    </div>
-</div>
-
-
-<div class="audio-player" style="background-color: #F5B7B1; display: flex; align-items: center; padding: 10px; border-radius: 8px;">
-    <!-- Add the image here -->
-    <img src="https://i.pinimg.com/736x/33/55/22/335522a9687e8723bc85e302261ea7f3.jpg" alt="Song Image" style="width: 50px; height: 50px; margin-right: 10px; border-radius: 5px;">
-    
-    <!-- Text and audio player content -->
-    <div>
-        <h3>Song 4 - Role Playing Game</h3>
-        <audio controls>
-            <source src="http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3" type="audio/mp3">
-        </audio>
-    </div>
-</div>
-
-<div class="audio-player" style="background-color: #A9DFBF; display: flex; align-items: center; padding: 10px; border-radius: 8px;">
-    <!-- Add the image here -->
-    <img src="https://marketplace.canva.com/EAF00PkmbGU/1/0/1600w/canva-red-and-yellow-modern-rap-music-music-album-cover-IqU7hAqANz4.jpg" alt="Song Image" style="width: 50px; height: 50px; margin-right: 10px; border-radius: 5px;">
-    
-    <!-- Text and audio player content -->
-    <div>
-        <h3>Song 5 - Role Playing Game</h3>
-        <audio controls>
-            <source src="http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3" type="audio/mp3">
-        </audio>
-    </div>
-</div>
-
-
-<div class="audio-player" style="background-color: #A2ABDF; display: flex; align-items: center; padding: 10px; border-radius: 8px;">
-    <!-- Add the image here -->
-    <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/music-album-cover-template-design-cccd9f22a227d27080bbd6a3ad323307_screen.jpg?ts=1617456552" alt="Song Image" style="width: 50px; height: 50px; margin-right: 10px; border-radius: 5px;">
-    
-    <!-- Text and audio player content -->
-    <div>
-        <h3>Song 6 - Role Playing Game</h3>
-        <audio controls>
-            <source src="http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3" type="audio/mp3">
-        </audio>
-    </div>
-</div>
-
-
-<div class="audio-player" style="background-color: #D7BDE2; display: flex; align-items: center; padding: 10px; border-radius: 8px;">
-    <!-- Add the image here -->
-    <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/album-cover-30-design-template-765235e0731d706796066a45d92325c8_screen.jpg?ts=1618573379" alt="Song Image" style="width: 50px; height: 50px; margin-right: 10px; border-radius: 5px;">
-    
-    <!-- Text and audio player content -->
-    <div>
-        <h3>Song 7 - Role Playing Game</h3>
-        <audio controls>
-            <source src="http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3" type="audio/mp3">
-        </audio>
-    </div>
-</div>
-
-
-<div class="audio-player" style="background-color: #AEEEF1; display: flex; align-items: center; padding: 10px; border-radius: 8px;">
-    <!-- Add the image here -->
-    <img src="https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs2/201677228/original/0b7357aa81cd0c5c145c0158a04340aea4418625/draw-and-design-a-creative-cartoon-album-cover-or-song-art.jpg" alt="Song Image" style="width: 50px; height: 50px; margin-right: 10px; border-radius: 5px;">
-    
-    <!-- Text and audio player content -->
-    <div>
-        <h3>Song 8 - Role Playing Game</h3>
-        <audio controls>
-            <source src="http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3" type="audio/mp3">
-        </audio>
-    </div>
-</div>
-
-<div class="audio-player" style="background-color: #EDD499; display: flex; align-items: center; padding: 10px; border-radius: 8px;">
-    <!-- Add the image here -->
-    <img src="https://p16-sign-va.lemon8cdn.com/tos-maliva-v-ac5634-us/ocjMWAAEmHBeD9kCCoFEQiDx14DtWIAQIkf3JR~tplv-tej9nj120t-shrink:640:0:q50.webp?lk3s=66c60501&source=seo_middle_feed_list&x-expires=1760680800&x-signature=uQvSHLVyvU1j8rgJ9bvxxRuPVT4%3D" alt="Song Image" style="width: 50px; height: 50px; margin-right: 10px; border-radius: 5px;">
-    
-    <!-- Text and audio player content -->
-    <div>
-        <h3>Song 9 - Role Playing Game</h3>
-        <audio controls>
-            <source src="http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3" type="audio/mp3">
-        </audio>
-    </div>
-</div>
-
-          </div>
-        </div> <br>
-<p style="color: #005f73; text-align: center">"Music is the language of the soul, it speaks when words are silent and lifts the heart to places words cannot reach" </p>
-
-    <style>
-
-        /* Reset some default styling */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
+        .tracks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
         }
 
-        /* Background Gradient */
-        body {
+        .track-player {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, pink, #c2e9fb, #a1c4fd, #FFFACD);
-            overflow-x: hidden;
-            padding-top: 4rem;
-        }
-
-        /* Footer Container */
-        .footer {
-            background: linear-gradient(135deg, pink, #c2e9fb, #a1c4fd, #FFFACD);
-            padding: 20px;
-            width: 100%;
-            max-width: 6000px;
+            background: white;
             border-radius: 12px;
-            color: #333;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .track-player:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .track-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .track-info {
+            flex: 1;
+        }
+
+        .track-info h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .track-player audio {
+            width: 100%;
+            height: 40px;
+            margin-top: 5px;
+            outline: none;
+        }
+
+        audio::-webkit-media-controls-panel {
+            background: #f1f3f4;
+        }
+
+        /* Quote Section */
+        .quote-section {
             text-align: center;
-            margin-top: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            padding: 40px 0;
         }
 
-        /* Footer Heading */
-        .footer h2 {
-            margin-bottom: 10px;
+        .quote {
             font-size: 1.5rem;
-            font-weight: bold;
-            color: #333;
+            font-style: italic;
+            color: var(--dark);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border-left: 4px solid var(--primary);
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 0 10px 10px 0;
         }
 
-        .footer p {
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            color: #555;
+        /* Footer */
+        .footer {
+            background: var(--gradient-alt);
+            color: white;
+            padding: 60px 0 30px;
+            width: 100%;
+            margin-top: auto;
         }
 
-        /* Social Media Icons */
-        .social-icons {
+        .footer-content {
             display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: white;
+        }
+
+        .footer-column p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
-        /* Individual Icon Styling */
-        .social-icons a {
-            text-decoration: none;
-            color: #333;
-            font-size: 1.5rem;
-            padding: 10px;
-            border-radius: 50%;
-            background-color: #eee;
-            transition: background-color 0.3s;
+        .social-link {
             display: flex;
             align-items: center;
             justify-content: center;
             width: 40px;
             height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
         }
 
-        /* Icon Hover Effects */
-        .social-icons a:hover {
-            background-color: #E8372E;
-            color: #fff;
+        .social-link:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
         }
 
-        /* Email Link */
-        .email-link {
-            display: block;
-            margin-top: 10px;
-            color: #333;
-            font-size: 0.9rem;
+        .footer-links {
+            list-style: none;
         }
 
-        /* Copyright */
-        .copyright {
-            margin-top: 10px;
-            font-size: 0.8rem;
-            color: #666;
+        .footer-links li {
+            margin-bottom: 12px;
         }
 
-        /* Responsive Adjustments */
-        @media (max-width: 600px) {
-            .footer {
-                padding: 15px;
-            }
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-            .footer h2 {
-                font-size: 1.3rem;
-            }
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
 
-            .footer p {
-                font-size: 0.8rem;
-            }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
-            .social-icons a {
-                font-size: 1.2rem;
-                width: 35px;
-                height: 35px;
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-text h1 {
+                font-size: 2.8rem;
             }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 5%;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .buttons {
+                justify-content: center;
+            }
+            
+            .artist-card, .track-player {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .artists-section, .music-section {
+                padding: 25px;
+            }
+            
+            .footer-column {
+                min-width: 100%;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
         }
     </style>
 </head>
 
 <body>
-    <!-- Footer Section -->
-    <div class="footer">
-        <h2>Connect with Me</h2>
-        <p>Follow me on social media to stay updated!</p>
-        <div class="social-icons">
-            <a href="https://www.linkedin.com/in/mohammad-jishan-4361972ba/" target="_blank" title="LinkedIn">🔗</a>
-            <a href="https://www.instagram.com/zeesu_royalist/" target="_blank" title="Instagram">📷</a>
-            <a href="https://www.facebook.com/p/Zeesu-Royalist-100064169071412/" target="_blank" title="Facebook">📘</a>
-            <a href="https://x.com/zeesuroyalist" target="_blank" title="Twitter">🐦</a>
-            <a href="https://www.youtube.com/@zeesu_royalist" target="_blank" title="YouTube">▶️</a>
-            <a href="https://wa.me/message/EERUGRMFY7U4M1" target="_blank" title="WhatsApp">💬</a>
-            <a href="https://in.pinterest.com/zeesu_royalist/" target="_blank" title="Pinterest">📌</a>
-            <a href="https://www.snapchat.com/add/zeesu_royalist" target="_blank" title="Snapchat">👻</a>
-            <a href="https://zeesuroyalist.tumblr.com/likes" target="_blank" title="Tumblr">ꝷ</a>
-            <a href="https://www.messenger.com/login.php?next=https%3A%2F%2Fwww.messenger.com%2Ft%2F100013460175762%2F%3Fhandler%3Dm.me" target="_blank" title="FB Messenger">📬</a>
-            <a href="https://github.com/zeesu-royalist" target="_blank" title="GitHub">😺</a>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="#" class="logo">Zeesu <span>Music</span></a>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-        <a href="mailto:rzeesu@gmail.com" class="email-link">Email: rzeesu@gmail.com</a>
-        <div class="copyright">
-            &copy; 2024 Zeesu Royalist music. All rights reserved.
+        <ul class="nav-links">
+            <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="https://zeesu-royalist.github.io" target="_blank"><i class="fas fa-user"></i> About</a></li>
+            <li><a href="https://zeesu-royalist.github.io/Legacy/" target="_blank"><i class="fas fa-cogs"></i> Services</a></li>
+            <li><a href="https://zeesu-royalist.github.io/chronicles/" target="_blank"><i class="fas fa-project-diagram"></i> Projects</a></li>
+            <li><a href="https://www.linkedin.com/in/mohammad-jishan-4361972ba/" target="_blank"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <div class="hero-text">
+                    <h1>Experience the Magic of Music</h1>
+                    <p>Welcome to the official website of Zeesu Royalist, where music transcends boundaries and touches souls. Discover a world of rhythm, melody, and emotion.</p>
+                    <div class="buttons">
+                        <a href="https://www.youtube.com/@zeesu_royalist" target="_blank" class="btn btn-primary"><i class="fas fa-play"></i> Play Now</a>
+                        <a href="https://www.google.com/search?q=zeesu+royalist" target="_blank" class="btn btn-secondary"><i class="fas fa-search"></i> Search</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/024/822/743/small_2x/the-headphones-ai-generated-transparent-png.png" alt="Music Headphones">
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Artists Section -->
+    <section class="artists-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Artists</h2>
+                <p>Discover talented musicians from around the world</p>
+            </div>
+            <div class="artists-grid">
+                <div class="artist-card fade-in">
+                    <img src="https://cdn.britannica.com/17/249617-050-4575AB4C/Ed-Sheeran-performs-Rockefeller-Plaza-Today-Show-New-York-2023.jpg" alt="Ed Sheeran" class="artist-image">
+                    <div class="artist-info">
+                        <h4>Ed Sheeran</h4>
+                    </div>
+                </div>
+                <div class="artist-card fade-in">
+                    <img src="https://wallpapercave.com/wp/wp6356968.jpg" alt="Zayn Malik" class="artist-image">
+                    <div class="artist-info">
+                        <h4>Zayn Malik</h4>
+                    </div>
+                </div>
+                <div class="artist-card fade-in">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Anne-Marie-4250_%28cropped%29.jpg" alt="Anne Marie" class="artist-image">
+                    <div class="artist-info">
+                        <h4>Anne Marie</h4>
+                    </div>
+                </div>
+                <div class="artist-card fade-in">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Justin_Bieber_in_Rosemont%2C_Illinois_%282015%29_%28cropped%29.jpg" alt="Justin Bieber" class="artist-image">
+                    <div class="artist-info">
+                        <h4>Justin Bieber</h4>
+                    </div>
+                </div>
+                <div class="artist-card fade-in">
+                    <img src="https://images.seattletimes.com/wp-content/uploads/2015/04/dfd95b0a-dc82-11e4-aaea-fade20b14329.jpg?d=2040x3060" alt="Ariana Grande" class="artist-image">
+                    <div class="artist-info">
+                        <h4>Ariana Grande</h4>
+                    </div>
+                </div>
+                <div class="artist-card fade-in">
+                    <img src="https://i.pinimg.com/736x/5b/51/04/5b5104aa689e1943ea81e244a37eb0eb.jpg" alt="Zeesu Royalist" class="artist-image">
+                    <div class="artist-info">
+                        <h4>Zeesu Royalist</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Player Section -->
+    <section class="music-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Music Collection</h2>
+                <p>Listen to our latest tracks and favorites</p>
+            </div>
+            <div class="tracks-grid">
+                <!-- Track 1 -->
+                <div class="track-player fade-in">
+                    <img src="https://i1.sndcdn.com/artworks-000055404823-0bdb1k-t500x500.jpg" alt="Song Cover" class="track-thumb">
+                    <div class="track-info">
+                        <h3>Sunn Raha Hai</h3>
+                        <audio controls>
+                            <source src="music/Sunn Raha Hai (Female) - (Raag.Fm).mp3" type="audio/mp3">
+                        </audio>
+                    </div>
+                </div>
+                
+                <!-- Track 2 -->
+                <div class="track-player fade-in">
+                    <img src="https://hindi2.djpunjab.app/cover/f0BtTtR-UvLFDE121jBFww==/aashiqui-2-cover-image.webp" alt="Song Cover" class="track-thumb">
+                    <div class="track-info">
+                        <h3>Chahun Main Ya Naa</h3>
+                        <audio controls>
+                            <source src="music/Chahun Main Ya Naa - (Raag.Fm).mp3" type="audio/mp3">
+                        </audio>
+                    </div>
+                </div>
+
+                <!-- Track 5 -->
+                <div class="track-player fade-in">
+                    <img src="https://i.ytimg.com/vi/hMYYzgSJdWM/maxresdefault.jpg" alt="Song Cover" class="track-thumb">
+                    <div class="track-info">
+                        <h3>Baarish</h3>
+                        <audio controls>
+                            <source src="music/Baarish - Yaariyan - (Raag.Fm).mp3" type="audio/mp3">
+                        </audio>
+                    </div>
+                </div>
+
+
+                <!-- Track 7 -->
+                <div class="track-player fade-in">
+                    <img src="https://c.saavncdn.com/479/Hasee-Toh-Phasee-Hindi-2014-20190618094841-500x500.jpg" alt="Song Cover" class="track-thumb">
+                    <div class="track-info">
+                        <h3>For My Pragati</h3>
+                        <audio controls>
+                            <source src="music/Ishq Bulaava - (Raag.Fm).mp3" type="audio/mp3">
+                        </audio>
+                    </div>
+                </div>
+
+                <!-- Track 8 -->
+                <div class="track-player fade-in">
+                    <img src="https://i.scdn.co/image/ab67616d0000b2731c903077054df0697fa1e9fd" alt="Song Cover" class="track-thumb">
+                    <div class="track-info">
+                        <h3>Jeena Jeena</h3>
+                        <audio controls>
+                            <source src="music/Jeena Jeena - (Raag.Fm).mp3" type="audio/mp3">
+                        </audio>
+                    </div>
+                </div>
+
+                <!-- Track 9 -->
+                <div class="track-player fade-in">
+                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQJ2eHlAxjEsOq2TAvB1POQ8ixCXvBpqDlwIN-WM_KhfqJ_JsgkbTbCbxNNwOns0CrE_Pjo" alt="Song Cover" class="track-thumb">
+                    <div class="track-info">
+                        <h3>Sanam Teri Kasam</h3>
+                        <audio controls>
+                            <source src="music/Sanam Teri Kasam (Reprise) - (Raag.Fm).mp3" type="audio/mp3">
+                        </audio>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Zeesu Music</h3>
+                    <p>Presenting music that inspires, heals, and brings people together. Join me on this musical journey.</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/mohammad-jishan-4361972ba/" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/zeesu_royalist/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/p/Zeesu-Royalist-100064169071412/" target="_blank" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/zeesuroyalist" target="_blank" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/@zeesu_royalist" target="_blank" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="https://zeesu-royalist.github.io" target="_blank"><i class="fas fa-chevron-right"></i> About</a></li>
+                        <li><a href="https://zeesu-royalist.github.io/Legacy/" target="_blank"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="https://zeesu-royalist.github.io/chronicles/" target="_blank"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                        <li><a href="https://www.linkedin.com/in/mohammad-jishan-4361972ba/" target="_blank"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-envelope"></i> Email: rzeesu@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Based in India</p>
+                    <div class="social-links">
+                        <a href="https://wa.me/9999736978" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://in.pinterest.com/zeesu_royalist/" target="_blank" class="social-link"><i class="fab fa-pinterest"></i></a>
+                        <a href="https://www.snapchat.com/add/zeesu_royalist" target="_blank" class="social-link"><i class="fab fa-snapchat"></i></a>
+                        <a href="https://github.com/zeesu-royalist" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Zeesu Music. All rights reserved.</p>
+                <p style="margin-top: 10px; font-style: italic;">Powered by The Zeesu Royalist Company</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle mobile menu
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Fade in animation for elements
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOptions = {
+            threshold: 0.3
+        };
+        
+        const fadeInObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, fadeInOptions);
+        
+        fadeElements.forEach(element => {
+            element.style.opacity = 0;
+            element.style.transition = 'opacity 0.5s ease-in-out';
+            fadeInObserver.observe(element);
+        });
+    </script>
 </body>
+
 </html>
